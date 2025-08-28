@@ -30,18 +30,18 @@ Medicos = [{
 ]
 
 
-@router.get("/", status_code=200)
+@router.get("/", status_code=200, description="Obtener todos los medicos")
 async def getMedicos():
     return Medicos
 
-@router.get("/{medico_id}", status_code=200)
+@router.get("/{medico_id}", status_code=200, description="Obtener un medico por su ID")
 async def getMedico(medico_id: int):
     for i in Medicos:
         if i["id"] == medico_id:
             return i
     raise HTTPException(status_code=404, detail="Medico not found")
 
-@router.post("/", status_code=201)
+@router.post("/", status_code=201, description="Crear un nuevo medico")
 async def createMovie(medico : Medico):
     for i in Medicos:
         if i["cedula"] == medico.cedula:
@@ -54,3 +54,30 @@ async def createMovie(medico : Medico):
         medico.id = 1
     Medicos.append(medico.model_dump())
     return medico
+
+@router.put("/{medico_id}", status_code=200, description="Actualizar un medico por su ID")
+async def updateMedico(medico_id: int, medico: Medico):
+    found = False
+    for i in Medicos:
+        if i["id"] == medico_id:
+            i["cedula"] = medico.cedula
+            i["nombre"] = medico.nombre
+            i["especialidad"] = medico.especialidad
+            i["email"] = medico.email
+            i["telefono"] = medico.telefono
+            found = True
+            return i
+    if not found:
+        raise HTTPException(status_code=404, detail="Medico not found")
+    return 
+
+@router.delete("/{medico_id}", status_code=200, description="Eliminar un medico por su ID")
+async def deleteMedico(medico_id: int):
+    found = False
+    for i in Medicos:
+        if i["id"] == id:
+            Medicos.remove(i)
+            found = True
+    if not found:
+        raise HTTPException(status_code=404, detail='Not Found') 
+    return Medicos
