@@ -18,6 +18,7 @@ router.get(
             }
         }
     )
+
 def create_patient(patient: PatientCreate):
     for p in patients_db:
         if p.documentID == patient.documentID:
