@@ -72,7 +72,7 @@ async def updateNurse(Nurse_id: int, Nurse: Nurse):
 async def deleteNurse(Nurse_id: int):
     found = False
     for i in Nurses:
-        if i["id"] == id:
+        if i["id"] == Nurse_id:
             Nurses.remove(i)
             found = True
     if not found:
