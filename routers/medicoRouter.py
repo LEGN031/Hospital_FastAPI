@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException
 from models.models import Medico
 
-router = APIRouter(prefix="/medicos", responses={404:{ "message": "Not Found"}}, tags=["Medicos"])
+router = APIRouter(prefix="/medicos", tags=["Medicos"])
 
 Medicos = [{
     "id": 1,
@@ -30,18 +30,18 @@ Medicos = [{
 ]
 
 
-@router.get("/")
+@router.get("/", status_code=200)
 async def getMedicos():
     return Medicos
 
-@router.get("/{medico_id}")
+@router.get("/{medico_id}", status_code=200)
 async def getMedico(medico_id: int):
     for i in Medicos:
         if i["id"] == medico_id:
             return i
     raise HTTPException(status_code=404, detail="Medico not found")
 
-@router.post("/")
+@router.post("/", status_code=201)
 async def createMovie(medico : Medico):
     for i in Medicos:
         if i["cedula"] == medico.cedula:
