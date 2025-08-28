@@ -40,6 +40,7 @@ async def getNurse(Nurse_id: int):
 
 @router.post("/", status_code=201, description="Crear un nuevo Nurse")
 async def createNurse(Nurse : Nurse):
+    found = False
     for i in Nurses:
         if i["cedula"] == Nurse.cedula:
             found = True
