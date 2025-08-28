@@ -3,7 +3,8 @@ from typing import Optional
 
 class Medico(BaseModel):
     id: Optional[int] = None
-    name: str
+    cedula: str
+    nombre: str
     especialidad: str
     email: str
-    telefone: str
+    telefono: str
