@@ -80,8 +80,7 @@ def get_patient(patient_id: str):
 
     for p in patients_db:
         if p.id == patient_id:
-            patient = p
-        return patient
+            return p
     
     raise HTTPException(
         status_code = 404,
