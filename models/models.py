@@ -21,3 +21,10 @@ class PatientCreate(PatientBase):
 class Patient(PatientBase):
     id: str 
     name: str 
+
+class Nurse (BaseModel):
+    id: Optional[int] = None
+    cedula: str
+    nombre: str
+    email: str
+    telefono: str

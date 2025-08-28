@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from routers import medicoRouter, pacienteRouter
+from routers import medicoRouter, pacienteRouter, EnfermeraRouter
 
 app = FastAPI(
     title="API de Gestion de Medicos y Pacientes",
@@ -9,6 +9,7 @@ app = FastAPI(
 
 app.include_router(medicoRouter.router)
 app.include_router(pacienteRouter.router)
+app.include_router(EnfermeraRouter.router)
 
 @app.get("/")
 async def root():
