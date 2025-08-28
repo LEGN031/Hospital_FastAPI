@@ -8,5 +8,15 @@ class Medico(BaseModel):
     email: str
     telefone: str
 
-class PacienteBase(BaseModel): 
-    name: str = Field(..., min_lenght = 3)
+class PatientBase(BaseModel): 
+    name: str = Field(..., min_lenght = 3, description = "nombre del paciente")
+    email: str = Field(..., min_length = 10, description = "Correo del paciente")
+    documentID: str = Field(..., description = "Numero de documento de identificacion del paciente")
+    phoneNumber: str = Field(..., description = "Numero de contacto del paciente")
+
+class PatientCreate(PatientBase):
+    password: str = Field(..., description = "Contraseña del paciente")
+
+class Patient():
+    id: str 
+
