@@ -30,12 +30,19 @@ Medicos = [{
 ]
 
 
+@router.get("/buscar", status_code=200, description="Buscar medicos por especialidad")
+def getMedicosByEspecialidad(especialidad: str):
+    resultados = [m for m in Medicos if m["especialidad"].lower() == especialidad.lower()]
+    if not resultados:
+        raise HTTPException(status_code=404, detail="No se encontraron medicos con esa especialidad")
+    return resultados
+
 @router.get("/", status_code=200, description="Obtener todos los medicos")
 async def getMedicos():
     return Medicos
 
 @router.get("/{medico_id}", status_code=200, description="Obtener un medico por su ID")
-async def getMedico(medico_id: int):
+async def getMedicoByID(medico_id: int):
     for i in Medicos:
         if i["id"] == medico_id:
             return i
@@ -43,6 +50,7 @@ async def getMedico(medico_id: int):
 
 @router.post("/", status_code=201, description="Crear un nuevo medico")
 async def createMovie(medico : Medico):
+    found = False
     for i in Medicos:
         if i["cedula"] == medico.cedula:
             found = True
@@ -75,9 +83,10 @@ async def updateMedico(medico_id: int, medico: Medico):
 async def deleteMedico(medico_id: int):
     found = False
     for i in Medicos:
-        if i["id"] == id:
+        if i["id"] == medico_id:
             Medicos.remove(i)
             found = True
     if not found:
         raise HTTPException(status_code=404, detail='Not Found') 
     return Medicos
+
