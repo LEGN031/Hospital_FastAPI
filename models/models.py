@@ -18,5 +18,5 @@ class PatientBase(BaseModel):
 class PatientCreate(PatientBase):
     password: str = Field(..., description = "Contraseña del paciente")
 
-class Patient():
+class Patient(PatientBase):
     id: str 
