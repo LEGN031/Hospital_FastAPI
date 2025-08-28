@@ -5,10 +5,10 @@ import uuid
 
 router = APIRouter(prefix = "/patient", tags = ["Patients"])
 
-patients_db: Patient = []
+patients_db = []
 
 @router.post(
-    "/patient", 
+    "/", 
     response_model = Patient, 
     summary = "Crear usuario de paciente",
     description = "Se agrega una nueva cuenta de paciente",
@@ -35,17 +35,17 @@ def create_patient(patient: PatientCreate):
         id = patient_id,
         name = patient.name,
         email = patient.email,
-        ducumentID = patient.documentID,
+        documentID = patient.documentID,
         phoneNumber = patient.phoneNumber,
         password = patient.password
     )
 
-    patients_db[patient_id] = patient_data.model_dump()
+    patients_db.append(patient_data)
     return  patient_data
 
 
 @router.get(
-    "/patient",
+    "/",
     response_model = List[Patient],
     summary = "Obtener lista de pacientes",
     description = "Se obtiene la lista de los pacientes",
@@ -61,7 +61,7 @@ def get_patients():
     return patients
 
 @router.get(
-    "/patient/{patient_id}",
+    "/{patient_id}",
     response_model = Patient,
     summary = "Obtener un paciente por id",
     description = "Se obtiene un paciente mediante su id",
@@ -76,8 +76,6 @@ def get_patients():
         }
     )
 def get_patient(patient_id: str):
-    patient = Patient()
-
     for p in patients_db:
         if p.id == patient_id:
             return p
