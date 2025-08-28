@@ -20,3 +20,4 @@ class PatientCreate(PatientBase):
 
 class Patient():
     id: str 
+    name: str 
