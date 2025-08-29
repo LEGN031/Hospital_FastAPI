@@ -30,9 +30,9 @@ def create_patient(patient: PatientCreate):
                 detail = "Paciente existente"
             )
         
-    patient_id = str(uuid.uuid4())
+    Patient_id = str(uuid.uuid4())
     patient_data = Patient(
-        id = patient_id,
+        patient_id = Patient_id,
         name = patient.name,
         email = patient.email,
         documentID = patient.documentID,
@@ -75,9 +75,9 @@ def get_patients():
             }
         }
     )
-def get_patient(patient_id: str):
+def get_patient(Patient_id: str):
     for p in patients_db:
-        if p.id == patient_id:
+        if p.patient_id == Patient_id:
             return p
     
     raise HTTPException(
