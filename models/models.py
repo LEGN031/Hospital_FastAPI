@@ -15,6 +15,12 @@ class PatientBase(BaseModel):
     documentID: str = Field(..., description = "Numero de documento de identificacion del paciente")
     phoneNumber: str = Field(..., description = "Numero de contacto del paciente")
 
+class PatientUpdate(BaseModel): 
+    name: str = Field(None, min_lenght = 3, description = "nombre del paciente")
+    email: str = Field(None, min_length = 10, description = "Correo del paciente")
+    documentID: str = Field(None, description = "Numero de documento de identificacion del paciente")
+    phoneNumber: str = Field(None, description = "Numero de contacto del paciente")
+
 class PatientCreate(PatientBase):
     password: str = Field(..., description = "Contraseña del paciente")
 
