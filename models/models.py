@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 class Medico(BaseModel):
-    id: Optional[int] = None
+    medico_id: Optional[int] = None
     cedula: str
     nombre: str
     especialidad: str
@@ -25,4 +25,19 @@ class PatientCreate(PatientBase):
     password: str = Field(..., description = "Contraseña del paciente")
 
 class Patient(PatientBase):
-    id: str 
+    patient_id: str 
+     
+
+class Nurse (BaseModel):
+    nurse_id: Optional[int] = None
+    cedula: str
+    nombre: str
+    email: str
+    telefono: str
+
+class Cita(BaseModel):
+    cita_id: Optional[int] = None
+    patient_id: str
+    medico_id: int
+    fecha: str
+    hora: str

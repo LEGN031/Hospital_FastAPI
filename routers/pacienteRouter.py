@@ -58,6 +58,7 @@ async def get_patients(skip: int = 0, limit: int = 15) -> List[Patient]:
     status_code = status.HTTP_200_OK
     )
 async def get_patient(Patient_id: str) -> Patient:
+
     for p in patients_db:
         if p.patient_id == Patient_id:
             return p
