@@ -1,5 +1,5 @@
-from fastapi import APIRouter, HTTPException
-from models.models import PatientBase, Patient, PatientCreate
+from fastapi import APIRouter, HTTPException, status
+from models.models import Patient, PatientCreate, PatientUpdate
 from typing import List
 import uuid
 
@@ -13,20 +13,13 @@ patients_db = []
     summary = "Crear usuario de paciente",
     description = "Se agrega una nueva cuenta de paciente",
     tags = ["Patients"],
-    responses = {
-        201: {
-            "Description" : "Usuario creado exitosamente"
-        },
-        400: {
-            "descripcion": "Usuario ya existe"
-        },
-    }
+    status_code = status.HTTP_201_CREATED,
 )
-def create_patient(patient: PatientCreate):
+async def create_patient(patient: PatientCreate) -> Patient:
     for p in patients_db:
         if p.documentID == patient.documentID:
             raise HTTPException(
-                status_code = 404,
+                status_code = status.HTTP_404_NOT_FOUND,
                 detail = "Paciente existente"
             )
         
@@ -50,15 +43,11 @@ def create_patient(patient: PatientCreate):
     summary = "Obtener lista de pacientes",
     description = "Se obtiene la lista de los pacientes",
     tags = ["Patients"],
-    responses = {
-        200: {
-            "Description" : "Lista entregada correctamente"
-        }
-    }
+    status_code = status.HTTP_200_OK
 )
-def get_patients():
+async def get_patients(skip: int = 0, limit: int = 15) -> List[Patient]:
     patients = patients_db
-    return patients
+    return patients[skip: skip + limit]
 
 @router.get(
     "/{patient_id}",
@@ -66,21 +55,62 @@ def get_patients():
     summary = "Obtener un paciente por id",
     description = "Se obtiene un paciente mediante su id",
     tags = ["Patients"],
-    responses = {
-            200: {
-                "Description" : "paciente encontrado"
-            },
-            404: {
-                "description" : "paciente no existe" 
-            }
-        }
+    status_code = status.HTTP_200_OK
     )
-def get_patient(Patient_id: str):
+async def get_patient(Patient_id: str) -> Patient:
+
     for p in patients_db:
         if p.patient_id == Patient_id:
             return p
     
     raise HTTPException(
-        status_code = 404,
+        status_code = status.HTTP_404_NOT_FOUND,
         detail = "El paciente no existe"
     )
+
+@router.put(
+    "/{patient_id}",
+    response_model = Patient,
+    summary = "Actualiza un paciente por id",
+    description = "Se actualizan los datos de un paciente buscado mediante el id",
+    tags = ["Patients"],
+    status_code = status.HTTP_201_CREATED
+)
+async def update_patient(patient_id: str, patient_update: PatientUpdate) -> Patient:
+    for patient in patients_db:
+        if patient.patient_id == patient_id:            
+            
+            if patient_update.name is not None:
+                patient.name = patient_update.name
+            if patient_update.email is not None:
+                patient.email = patient_update.email
+            if patient_update.documentID is not None:
+                patient.documentID = patient_update.documentID
+            if patient_update.phoneNumber is not None:
+                patient.phoneNumber = patient_update.phoneNumber
+
+            return patient
+        
+    raise HTTPException(
+            status_code = status.HTTP_404_NOT_FOUND,
+            detail = "No existe el paciente"
+        )
+
+@router.delete(
+    "/{patient_id}",
+    summary = "Elimina un paciente por id",
+    description = "Se Eliminara el paciente de la base de datos mediante el id",
+    tags = ["Patients"],
+    status_code = status.HTTP_204_NO_CONTENT
+)
+async def delete_patient(patient_id: str):
+    for index, p in enumerate(patients_db):
+        if p.patient_id == patient_id:
+            del patients_db[index]
+            return "Paciente eliminado"
+    
+    raise HTTPException(
+        status_code = status.HTTP_404_NOT_FOUND,
+        detail = "No se encontro el paciente"
+    )
+    
