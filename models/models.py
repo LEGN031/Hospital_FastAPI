@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
-from typing import Optional
+from typing import Optional, List
+from datetime import datetime
 
 class Medico(BaseModel):
     medico_id: Optional[int] = None
@@ -41,3 +42,21 @@ class Cita(BaseModel):
     medico_id: int
     fecha: str
     hora: str
+
+class ListaDiagnostico(BaseModel):
+    Tipo: str
+    descripcion: str
+
+class RegistroDiagnosticoCreate(BaseModel):
+    diagnosticos: List[ListaDiagnostico] = Field(..., description = "Lista de diagnosticos encontrados durante la cita")
+    fecha: datetime = Field(..., description = "Fecha del registro del diagnostico")
+    cita_id: int = Field(..., description = "Id de la cita del paciente")
+    medico_id: str = Field(..., description = "Id Medico que atendio la cita")
+    patient_id: str = Field(..., description = "Id del paciente deuño de la cita")
+
+class RegistroDiagnosticoUpdate(BaseModel):
+    diagnosticos: List[ListaDiagnostico] = Field(None, description = "Lista de diagnosticos encontrados durante la cita")
+    fecha: datetime = Field(None, description = "Fecha del registro del diagnostico")
+
+class Diagnostico(RegistroDiagnosticoCreate):
+    diagnostico_id: str = Field(..., description = "Id de la cita del paciente")
