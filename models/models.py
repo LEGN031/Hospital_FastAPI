@@ -42,7 +42,6 @@ class Cita(BaseModel):
     medico_id: int
     fecha: str
     hora: str
-
 class ListaDiagnostico(BaseModel):
     Tipo: str
     descripcion: str
@@ -60,3 +59,11 @@ class RegistroDiagnosticoUpdate(BaseModel):
 
 class Diagnostico(RegistroDiagnosticoCreate):
     diagnostico_id: str = Field(..., description = "Id de la cita del paciente")
+class Factura(BaseModel):
+    factura_id: Optional[int] = None
+    fecha: str
+    hora: str
+    medico_id: int
+    patient_id: str
+    diagnostico: str
+    total: float
