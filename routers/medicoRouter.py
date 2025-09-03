@@ -4,7 +4,7 @@ from models.models import Medico
 router = APIRouter(prefix="/medicos", tags=["Medicos"])
 
 Medicos = [{
-    "id": 1,
+    "medico_id": 1,
     "cedula": "1234567890",
     "nombre": "Dr. Juan Perez",
     "especialidad": "Cardiologia",
@@ -12,7 +12,7 @@ Medicos = [{
     "telefono": "123456789"
 },
 {
-    "id": 2,
+    "medico_id": 2,
     "cedula": "0987654321",
     "nombre": "Dra. Maria Gomez",
     "especialidad": "Neurologia",
@@ -20,7 +20,7 @@ Medicos = [{
     "telefono": "987654321"
 },
 {
-    "id": 3,
+    "medico_id": 3,
     "cedula": "4561237890",
     "nombre": "Dr. Carlos Ruiz",
     "especialidad": "Pediatria",
@@ -57,9 +57,9 @@ async def createMovie(medico : Medico):
     if found:
         raise HTTPException(status_code=400, detail= 'Already exists')
     if len(Medicos) > 0:
-        medico.id = Medicos[-1]["id"] + 1
+        medico.medico_id = Medicos[-1]["medico_id"] + 1
     else:
-        medico.id = 1
+        medico.medico_id = 1
     Medicos.append(medico.model_dump())
     return medico
 
