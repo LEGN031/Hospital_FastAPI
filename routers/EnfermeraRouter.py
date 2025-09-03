@@ -47,7 +47,7 @@ async def createNurse(Nurse : Nurse):
     if found:
         raise HTTPException(status_code=400, detail= 'Already exists')
     if len(Nurses) > 0:
-        Nurse.nurse_id = Nurses[-1]["id"] + 1
+        Nurse.nurse_id = Nurses[-1]["nurse_id"] + 1
     else:
         Nurse.nurse_id = 1
     Nurses.append(Nurse.model_dump())
