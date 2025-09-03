@@ -44,7 +44,7 @@ async def getMedicos():
 @router.get("/{medico_id}", status_code=200, description="Obtener un medico por su ID")
 async def getMedicoByID(medico_id: int):
     for i in Medicos:
-        if i["id"] == medico_id:
+        if i["medico_id"] == medico_id:
             return i
     raise HTTPException(status_code=404, detail="Medico not found")
 
@@ -67,7 +67,7 @@ async def createMovie(medico : Medico):
 async def updateMedico(medico_id: int, medico: Medico):
     found = False
     for i in Medicos:
-        if i["id"] == medico_id:
+        if i["medico_id"] == medico_id:
             i["cedula"] = medico.cedula
             i["nombre"] = medico.nombre
             i["especialidad"] = medico.especialidad
@@ -83,7 +83,7 @@ async def updateMedico(medico_id: int, medico: Medico):
 async def deleteMedico(medico_id: int):
     found = False
     for i in Medicos:
-        if i["id"] == medico_id:
+        if i["medico_id"] == medico_id:
             Medicos.remove(i)
             found = True
     if not found:

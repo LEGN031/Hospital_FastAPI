@@ -4,21 +4,21 @@ from models.models import Nurse
 router = APIRouter(prefix="/enfermeras", tags=["Enfermeras"])
 
 Nurses = [{
-    "id": 1,
+    "nurse_id": 1,
     "cedula": "1234567890",
     "nombre": "Ana Martinez",
     "email": "AnaMartinez@gmail.com",
     "telefono": "189278"
 },
 {
-    "id": 2,
+    "nurse_id": 2,
     "cedula": "0987654321",
     "nombre": "Margarita BuenaVista",
     "email": "MargaritaB@gmail.com",
     "telefono": "12821901"
 },
 {
-    "id": 3,
+    "nurse_id": 3,
     "cedula": "4561237890",
     "nombre": "Luciana Hernandez",
     "email": "LuciH@gmail.com",
@@ -34,7 +34,7 @@ async def getNurses():
 @router.get("/{Nurse_id}", status_code=200, description="Obtener un Nurse por su ID")
 async def getNurse(Nurse_id: int):
     for i in Nurses:
-        if i["id"] == Nurse_id:
+        if i["nurse_id"] == Nurse_id:
             return i
     raise HTTPException(status_code=404, detail="Nurse not found")
 
@@ -47,9 +47,9 @@ async def createNurse(Nurse : Nurse):
     if found:
         raise HTTPException(status_code=400, detail= 'Already exists')
     if len(Nurses) > 0:
-        Nurse.id = Nurses[-1]["id"] + 1
+        Nurse.nurse_id = Nurses[-1]["id"] + 1
     else:
-        Nurse.id = 1
+        Nurse.nurse_id = 1
     Nurses.append(Nurse.model_dump())
     return Nurse
 
@@ -57,7 +57,7 @@ async def createNurse(Nurse : Nurse):
 async def updateNurse(Nurse_id: int, Nurse: Nurse):
     found = False
     for i in Nurses:
-        if i["id"] == Nurse_id:
+        if i["nurse_id"] == Nurse_id:
             i["cedula"] = Nurse.cedula
             i["nombre"] = Nurse.nombre
             i["email"] = Nurse.email
@@ -72,7 +72,7 @@ async def updateNurse(Nurse_id: int, Nurse: Nurse):
 async def deleteNurse(Nurse_id: int):
     found = False
     for i in Nurses:
-        if i["id"] == Nurse_id:
+        if i["nurse_id"] == Nurse_id:
             Nurses.remove(i)
             found = True
     if not found:
