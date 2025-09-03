@@ -2,7 +2,7 @@
 
 ## **1. Información General**
 - **Nombre del Proyecto**: Sistema Hospitalario
-- **Versión del Sistema**: 1.0
+- **Versión del Sistema**: 1.0.0
 - **Fecha de Creación**: 08/2025
 - **Autor(es)**: Emanuel Medina Arboleda, Samuel Ortiz Bermudez, Julián Garcia Guevara
 - **Propósito**: Proporcionar información técnica detallada sobre la instalación, configuración, funcionamiento y mantenimiento de la API REST desarrollada en FastAPI para la gestión hospitalaria.
@@ -104,9 +104,17 @@ El sistema funciona como un servidor REST que permite realizar operaciones CRUD 
 -  Actualizar cita → PUT /citas/{id}
 -  Cancelar cita → DELETE /citas/{id}
 
-4. **Generación de Facturas**:
+4. **Generación de Diagnosticos**:
+-  Crear Diagnostico → POST /diagnostico/
+-  Consultar diagnosticos → GET /diagnostico/
+-  Consultar diagnosticos por tipo de diagnostico → GET /diagnostico/tipo
+-  Consultar diagnostico por id → GET /diagnostico/{diagnostico_id}
+-  Actualizar diagnostico → PUT /diagnostico/{diagnostico_id}
+-  Eliminar diagnostico → DELETE /diagnostico/{diagnostico_id}
+
+5. **Generación de Facturas**:
 -  Crear factura → POST /Factura/
 -  Consultar facturas → GET /Factura/
 -  Consultar facturas por paciente → GET /Factura/patient
--  Actualizar facturas → GET /Factura/{factura_id}
--  Eliminar facturas → GET /Factura/{factura_id}
+-  Actualizar facturas → PUT /Factura/{factura_id}
+-  Eliminar facturas → DELETE /Factura/{factura_id}
