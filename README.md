@@ -93,10 +93,10 @@ El sistema funciona como un servidor REST que permite realizar operaciones CRUD 
 
 ### **6.2 Flujos de Trabajo Principales**
 1. **Gestión de Pacientes/Medicos/Enfermeras**:
--  Crear un paciente/medicos/enfermeras → POST (/pacientes),(/medicos) o (/enfermeras)
--  Consultar pacientes → GET (/pacientes),(/medicos) o (/enfermeras)
--  Editar paciente → PUT (/pacientes/{id}),(/medicos/{id}) o (/enfermeras/{id})
--  Eliminar paciente → DELETE (/pacientes/{id}),(/medicos/{id}) o (/enfermeras/{id})
+-  Crear un paciente/medicos/enfermeras → POST (/patient),(/medicos) o (/enfermeras)
+-  Consultar pacientes → GET (/patient),(/medicos) o (/enfermeras)
+-  Editar paciente → PUT (/patient/{patient_id}),(/medicos/{id}) o (/enfermeras/{id})
+-  Eliminar paciente → DELETE (/patient/{patient_id}),(/medicos/{id}) o (/enfermeras/{id})
   
 2. **Gestión de Citas Médicas**:
 -  Registrar cita → POST /citas/
@@ -118,3 +118,40 @@ El sistema funciona como un servidor REST que permite realizar operaciones CRUD 
 -  Consultar facturas por paciente → GET /Factura/patient
 -  Actualizar facturas → PUT /Factura/{factura_id}
 -  Eliminar facturas → DELETE /Factura/{factura_id}
+
+---
+
+# Ejemplos en PostMan
+
+## Medicos
+**POST**: Crear un nuevo medico en la db
+<img width="1481" height="633" alt="image" src="https://github.com/user-attachments/assets/c19ee029-b83e-4419-9745-ccaa941aa30f" />
+
+**GET**: Obtener todos los medicos de la db
+<img width="1474" height="753" alt="image" src="https://github.com/user-attachments/assets/4b81f794-50a1-445f-8c16-b21fe8bedfab" />
+
+
+## Pacientes
+
+**POST**: Crear un nuevo paciente para la db
+<img width="1481" height="524" alt="image" src="https://github.com/user-attachments/assets/f58d9192-0921-491a-88c1-dbb3e0a5bb2a" />
+
+**GET**: Obtiene el paciente mediante id
+<img width="1486" height="534" alt="image" src="https://github.com/user-attachments/assets/e5f22f53-890c-4b4b-afec-7565847b5251" />
+
+## Enferemeras
+
+**POST**: Crear una nueva enfermera
+<img width="1479" height="617" alt="image" src="https://github.com/user-attachments/assets/9645ea44-513e-411b-adb5-a86593ce65b5" />
+
+**DELETE**: Eliminar la informacion de la enfermera de la db
+<img width="1478" height="779" alt="image" src="https://github.com/user-attachments/assets/57e33b74-b526-4c0a-920b-7d85bf4e4f3d" />
+<img width="1471" height="607" alt="image" src="https://github.com/user-attachments/assets/37db3db2-2ec2-4006-85e0-d8603f0d3ba3" />
+
+**PUT**: actualizar la informacion de la enferemera en la db
+<img width="1475" height="622" alt="image" src="https://github.com/user-attachments/assets/c528e825-78c0-4957-a3ae-fe2f1a9cefa7" />
+
+
+
+
+
